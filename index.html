@@ -7,34 +7,582 @@
   <meta name="description" content="JunkieFund — Risk absorbed. Math public. No surprises." />
 
   <style>
-    body {
+    :root{
+      --bg: #07070a;
+      --panel: rgba(18,18,22,0.82);
+      --panel2: rgba(0,0,0,0.30);
+      --border: rgba(0,0,0,0.85);
+      --text: #e9e9ee;
+      --muted: #cfcfda;
+
+      --lime: #9eff8f;
+      --cyan: #4fd1ff;
+      --red: #ff6666;
+      --grape: #b889ff;
+      --yellow: #ffd966;
+
+      --shadow: rgba(0,0,0,0.6) 8px 8px 20px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body{
       margin: 0;
-      background: #07070a;
-      color: #e9e9ee;
+      background: var(--bg);
+      color: var(--text);
       font-family: Verdana, Arial, sans-serif;
       line-height: 1.6;
     }
 
-    a { color: #4fd1ff; text-decoration: none; }
+    a { color: var(--cyan); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    .hero {
-      background: url('https://iili.io/FCfsSOg.md.png') no-repeat center fixed;
+    /* Parallax background */
+    .hero{
+      background: #07070a url('https://iili.io/FCfsSOg.md.png') no-repeat center;
+      background-attachment: fixed;
       background-size: cover;
-      padding: 80px 20px;
+      padding: 34px 14px 60px 14px;
+      min-height: 100vh;
     }
 
-    .panel {
-      background: rgba(10,10,14,0.85);
-      max-width: 960px;
-      margin: auto;
-      padding: 40px;
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--panel);
       border: 2px solid #000;
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
 
-    h1, h2, h3 {
+    .header{
+      padding: 18px 18px;
       text-align: center;
-      margin-top: 0;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(26,26,34,0.88), rgba(12,12,18,0.78));
+    }
+
+    .brand{
+      font-size: 28px;
+      line-height: 1.1;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+
+    .brand span{ color: var(--lime); }
+
+    .sub{
+      margin-top: 8px;
+      font-size: 14px;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    .content{
+      padding: 18px 18px 10px 18px;
+      font-size: 14px;
+    }
+
+    .pitch{
+      padding: 14px;
+      background: var(--panel2);
+      border: 1px solid rgba(0,0,0,0.8);
+    }
+
+    .pitch strong{ color: var(--yellow); }
+
+    .section{
+      margin-top: 16px;
+      border: 1px solid rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.24);
+    }
+
+    .sectionTitle{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.22);
+    }
+
+    .badge{
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(15,15,18,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border-radius: 10px;
+      flex: 0 0 auto;
+    }
+
+    .badge img{
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 10px;
+      display: block;
+    }
+
+    .titleText{
+      line-height: 1.25;
+    }
+
+    .titleText .name{
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .titleText .oneLiner{
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .bodyPad{
+      padding: 12px 12px 14px 12px;
+    }
+
+    .kicker{
+      margin: 0 0 10px 0;
+      color: var(--cyan);
+      font-weight: 700;
+    }
+
+    ul, ol { margin: 10px 0 0 18px; padding: 0; }
+    li { margin: 6px 0; }
+
+    details{
+      margin-top: 10px;
+      background: rgba(0,0,0,0.30);
+      border: 1px solid rgba(0,0,0,0.85);
+      padding: 10px 10px;
+    }
+
+    summary{
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--cyan);
+      list-style: none;
+    }
+    summary::-webkit-details-marker{ display: none; }
+    summary:before{
+      content: "▸ ";
+      color: var(--cyan);
+      font-weight: 900;
+    }
+    details[open] summary:before{
+      content: "▾ ";
+    }
+
+    .note{
+      margin-top: 10px;
+      padding: 10px;
+      border-left: 4px solid rgba(79,209,255,0.85);
+      background: rgba(0,0,0,0.28);
+    }
+
+    .legal{
+      margin-top: 14px;
+      padding: 12px;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid rgba(0,0,0,0.85);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .enroll{
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(0,0,0,0.30);
+      border: 1px solid rgba(0,0,0,0.85);
+    }
+
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(0,0,0,0.85);
+    }
+
+    th, td{
+      text-align: left;
+      padding: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      vertical-align: top;
+    }
+
+    th{
+      background: rgba(0,0,0,0.35);
+      color: var(--grape);
+      font-weight: 800;
+      border-bottom: 1px solid rgba(0,0,0,0.85);
+    }
+
+    .pill{
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .pill.lime{ color: var(--lime); }
+    .pill.cyan{ color: var(--cyan); }
+    .pill.red{ color: var(--red); }
+    .pill.yellow{ color: var(--yellow); }
+
+    .footer{
+      padding: 10px 12px;
+      text-align: center;
+      border-top: 1px solid rgba(0,0,0,0.85);
+      background: rgba(10,10,14,0.88);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer strong{ color: var(--cyan); }
+
+    /* Responsive tweaks */
+    @media (max-width: 520px){
+      .content{ padding: 14px 12px 8px 12px; }
+      th, td{ padding: 8px; }
+      .badge{ width: 40px; height: 40px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">
+    <div class="wrap">
+
+      <!-- HEADER -->
+      <div class="header">
+        <h1 class="brand"><span>JunkieFund</span></h1>
+        <div class="sub">Risk absorbed &middot; Math public &middot; No surprises</div>
+      </div>
+
+      <div class="content">
+
+        <!-- 1. PITCH -->
+        <div class="pitch">
+          <p style="margin:0 0 10px 0;">
+            <strong>ODs suck.</strong> They’re the moment you want to throw your phone across the room.
+          </p>
+          <p style="margin:0;">
+            JunkieFund exists to turn that moment into a <strong>win instead</strong> — structured coverage, clear rules,
+            public math, and payouts you can plan around.
+          </p>
+        </div>
+
+        <!-- 2–3. CAPSULE (BASE PRODUCT) -->
+        <div class="section" id="junkiefund">
+          <div class="sectionTitle">
+            <div class="badge" title="Badge">
+              <!-- Placeholder for badge image -->
+              <img src="YOUR_BADGE_CAPSULE.png" alt="JunkieFund Badge" onerror="this.style.display='none'; this.parentNode.textContent='💊';" />
+            </div>
+            <div class="titleText">
+              <div class="name"><span style="color:var(--lime);">JunkieFund</span> Weekly Coverage</div>
+              <div class="oneLiner">Full-week overdose coverage with refunds, dividends, and brutal transparency.</div>
+            </div>
+          </div>
+
+          <div class="bodyPad">
+            <p style="margin:0;">
+              Buy in once per week, get covered for the active week, and if you OD on covered drugs, we verify the event and pay out.
+              Clean weeks may receive refunds (surplus-dependent), and top contributors may receive dividends.
+            </p>
+
+            <details>
+              <summary>Show the weekly timing &amp; late buy-in rules</summary>
+              <div style="margin-top:10px;">
+                <ul>
+                  <li><strong>Coverage week:</strong> Sunday 00:00 TCT → Saturday 23:59 TCT</li>
+                  <li><strong>Late buy-ins:</strong> accepted up to <strong>48 hours</strong> into the current week</li>
+                  <li>
+                    If you buy in late, you’re covered for the remainder of the week —
+                    <strong>you just don’t get back the time that already passed</strong>.
+                  </li>
+                  <li>
+                    Buy-ins more than <strong>48 hours</strong> after the week starts are applied to <strong>next week</strong>.
+                  </li>
+                  <li>
+                    If your buy-in is being applied to next week and you’re <strong>not already covered</strong> for the current week,
+                    you get <strong>2 hours of immediate bonus coverage</strong> starting right away.
+                  </li>
+                </ul>
+
+                <div class="note">
+                  <strong style="color:var(--yellow);">Plain English:</strong><br/>
+                  Buy in early for full coverage. Buy in late and you’re covered from that point forward. Buy in very late and we roll you to next week —
+                  but we still give you a 2-hour safety buffer if you aren’t covered yet.
+                </div>
+              </div>
+            </details>
+
+            <details>
+              <summary>Show tiers, payouts, and refunds</summary>
+              <div style="margin-top:10px;">
+                <p class="kicker">Tier Breakdown</p>
+
+                <!-- Keep your existing tier table structure; edit values as needed -->
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Tier</th>
+                        <th>Cost</th>
+                        <th>Xanax Payout</th>
+                        <th>Ecstasy Add-On</th>
+                        <th>Ecstasy Payout</th>
+                        <th>Xanax Refund Cap</th>
+                        <th>Ecstasy Refund Cap</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><span class="pill lime">1</span></td>
+                        <td>4 Xanax</td>
+                        <td>5 Xanax</td>
+                        <td>3 Xanax</td>
+                        <td>1× E-DVD</td>
+                        <td>Up to 2</td>
+                        <td>Up to 2</td>
+                      </tr>
+                      <tr>
+                        <td><span class="pill lime">2</span></td>
+                        <td>8 Xanax</td>
+                        <td>10 Xanax</td>
+                        <td>5 Xanax</td>
+                        <td>2× E-DVD</td>
+                        <td>Up to 4</td>
+                        <td>Up to 4</td>
+                      </tr>
+                      <tr>
+                        <td><span class="pill lime">3</span></td>
+                        <td>12 Xanax</td>
+                        <td>15 Xanax</td>
+                        <td>7 Xanax</td>
+                        <td>3× E-DVD</td>
+                        <td>Up to 6</td>
+                        <td>Up to 6</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p style="margin:10px 0 0 0; color:var(--yellow); font-size:13px;">
+                  * Refunds are surplus-dependent and capped by tier.<br/>
+                  * Verified events only. Covered drug types only.<br/>
+                  * Dividends and refunds are processed on the weekly cycle.
+                </p>
+
+                <div class="legal">
+                  <strong style="color:var(--grape);">Note:</strong> This section summarizes the structure. Final eligibility and payout
+                  depend on published conditions and verification of overdose events.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 4–5. STACKSHIELD -->
+        <div class="section" id="stackshield">
+          <div class="sectionTitle">
+            <div class="badge" title="Badge">
+              <img src="YOUR_BADGE_SHIELD.png" alt="StackShield Badge" onerror="this.style.display='none'; this.parentNode.textContent='🛡️';" />
+            </div>
+            <div class="titleText">
+              <div class="name"><span style="color:var(--lime);">StackShield</span> Coverage</div>
+              <div class="oneLiner">For deliberate stackers who want protection while timing a 4× Xanax + 1× Ecstasy run.</div>
+            </div>
+          </div>
+
+          <div class="bodyPad">
+            <details open>
+              <summary>Show StackShield details</summary>
+              <div style="margin-top:10px;">
+                <ul>
+                  <li><strong>Cost:</strong> 5 Xanax</li>
+                  <li><strong>Coverage:</strong> 4 Xanax + 1 Ecstasy</li>
+                  <li>
+                    <strong>Timing:</strong>
+                    <ul>
+                      <li>First Xanax within <strong>1 hour</strong> of buy-in</li>
+                      <li>Final Xanax within <strong>24 hours</strong> of the first Xanax</li>
+                      <li>Ecstasy within <strong>32 hours</strong> of buy-in</li>
+                    </ul>
+                  </li>
+                  <li><strong>Payout (if OD during window):</strong> 5 E-DVDs, 4 Xanax, 1 Ecstasy</li>
+                </ul>
+
+                <div class="note">
+                  <strong style="color:var(--yellow);">Best for:</strong> RW prep, planned happy jumps, and anyone stacking with intent — not chaos.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 6. MAINLINE -->
+        <div class="section" id="mainline">
+          <div class="sectionTitle">
+            <div class="badge" title="Badge">
+              <img src="YOUR_BADGE_SYRINGE.png" alt="MainLine Badge" onerror="this.style.display='none'; this.parentNode.textContent='💉';" />
+            </div>
+            <div class="titleText">
+              <div class="name"><span style="color:var(--red);">MainLine</span> Coverage</div>
+              <div class="oneLiner">For all-in players who want a massive, single-event payout during a tight window.</div>
+            </div>
+          </div>
+
+          <div class="bodyPad">
+            <details open>
+              <summary>Show MainLine details</summary>
+              <div style="margin-top:10px;">
+                <ul>
+                  <li><strong>Cost:</strong> 1–30 Xanax <span class="pill cyan">payout scales with amount sent</span></li>
+                  <li><strong>Window:</strong> All drugs must be taken within <strong>2 hours</strong> of buy-in</li>
+                  <li><strong>Payout (Xanax OD):</strong> 35 Xanax</li>
+                  <li><strong>Payout (Ecstasy OD):</strong> 22 Xanax</li>
+                </ul>
+
+                <div class="note">
+                  <strong style="color:var(--yellow);">Best for:</strong> the “I’m doing it anyway” crowd — big upside, clear rules.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 7–8. BACKERS -->
+        <div class="section" id="backers">
+          <div class="sectionTitle">
+            <div class="badge" title="Badge">
+              <img src="YOUR_BADGE_MONEYBAG.png" alt="Backers Badge" onerror="this.style.display='none'; this.parentNode.textContent='💰';" />
+            </div>
+            <div class="titleText">
+              <div class="name"><span style="color:var(--grape);">Backers</span> &amp; JunkieBonds</div>
+              <div class="oneLiner">For investors who want steady, measurable growth and a real voice in fund direction.</div>
+            </div>
+          </div>
+
+          <div class="bodyPad">
+            <details>
+              <summary>Show JunkieBonds details</summary>
+              <div style="margin-top:10px;">
+                <ul>
+                  <li><strong>Denomination:</strong> $50,000,000 per JunkieBond</li>
+                  <li><strong>Yield:</strong> 2% monthly return</li>
+                  <li><strong>Governance:</strong> Voting weight in fund decisions and events</li>
+                </ul>
+
+                <div class="note">
+                  Backers get access to investor channels and periodic voting. Tiering and privileges scale with participation.
+                </div>
+
+                <details>
+                  <summary>Show backer tiers</summary>
+                  <div style="margin-top:10px;">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Tier</th>
+                          <th>Investment</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><span class="pill yellow">🧷 Fixer</span></td>
+                          <td>$150,000,000</td>
+                          <td>Reliable operator who keeps the gears turning. Base-tier perks and voting access.</td>
+                        </tr>
+                        <tr>
+                          <td><span class="pill yellow">💰 Dealer</span></td>
+                          <td>$350,000,000</td>
+                          <td>High-volume investor with extended influence and more visibility into decisions.</td>
+                        </tr>
+                        <tr>
+                          <td><span class="pill yellow">👑 Kingpin</span></td>
+                          <td>$500,000,000+</td>
+                          <td>Top-tier backer: significant voting weight and early insight into strategy.</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </details>
+
+                <p style="margin:10px 0 0 0; color:var(--muted); font-size:13px;">
+                  To get started, contact an operator. Once verified, your contribution is recorded and access is granted.
+                </p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- 9. ENROLL / KEYWORDS / OPERATORS -->
+        <div class="enroll" id="enroll">
+          <div style="font-size:16px; font-weight:900; color:var(--cyan); text-align:center;">
+            How to Enroll
+          </div>
+
+          <p style="margin:10px 0 0 0;">
+            Send the required buy-in via <em>Send Item</em> to any operator and include the correct keyword message.
+          </p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Send Message Keyword</th>
+                <th>Buy-In</th>
+                <th>Operators (Send Item)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>JunkieFund Weekly</strong></td>
+                <td><span class="pill cyan">JunkieFund</span></td>
+                <td>Tiered (see tiers)</td>
+                <td rowspan="4">
+                  <strong>Zagan</strong> [2871443]<br/>
+                  <strong>ZAKA_YNWA</strong> [3232511]<br/>
+                  <strong>OG_Swift</strong> [3012460]<br/>
+                  <strong>Gnargoyle</strong> [3759422]
+                </td>
+              </tr>
+              <tr>
+                <td><strong>StackShield</strong></td>
+                <td><span class="pill lime">StackShield</span></td>
+                <td>5 Xanax</td>
+              </tr>
+              <tr>
+                <td><strong>MainLine</strong></td>
+                <td><span class="pill red">MainLine</span></td>
+                <td>1–30 Xanax</td>
+              </tr>
+              <tr>
+                <td><strong>JunkieBonds</strong></td>
+                <td><span class="pill yellow">Contact Operator</span></td>
+                <td>$50,000,000 increments</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note" style="margin-top:12px;">
+            <strong style="color:var(--yellow);">Tip:</strong> Use the exact keyword. It keeps verification fast and avoids delays.
+          </div>
+
+          <p style="margin:12px 0 0 0; text-align:center;">
+            <a href="https://discord.gg/WttugzStuE" target="_blank" rel="noopener">
+              Join the Discord for claim help, updates, and bragging righ      margin-top: 0;
     }
 
     h1 {
